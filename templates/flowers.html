@@ -1,0 +1,47 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Flowers{% endblock %}
+
+{% block content %}
+<body style="background-color: #78909c">
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+
+    <!----import from database--->
+    <!-----------Internal Embedded Script code for table------------->
+    <!--for loop to iterate through db list and place in table-->
+     {% for i1, i2, i3 in itemsFlowers %}
+         <tr>
+         <td>{{ i1 }}</td>
+         <td>{{ i2 }}</td>
+         <td>{{ i3 }}</td>
+         </tr>
+     {% endfor %}
+
+
+    </tbody>
+    </table>
+
+</body>
+
+{% endblock %}
