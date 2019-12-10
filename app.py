@@ -4,7 +4,7 @@ import sqlite3
 app = Flask(__name__)
 
 # establish a connection with the database file
-conn= sqlite3.connect('flowers2019.db')
+conn = sqlite3.connect('flowers2019.db')
 # create a cursor to query the database; does NOT change
 cursorObj = conn.cursor()
 
@@ -19,8 +19,7 @@ conn.close()
 
 @app.route('/flowers')
 def flowers():
-    return render_template('flowers.html'
-                          )
+    return render_template('flowers_2.html',itemsFlowers=itemsFlowers)
 
 @app.route('/')
 def index():
