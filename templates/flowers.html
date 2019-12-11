@@ -35,31 +35,15 @@
         </div>
 
 
-
     <!--In HTML Select Options-->
     <div style="padding-left: 150px; padding-top: 50px">
         <input type="text" id="flowerSelect" placeholder="Get value on option select" style="padding-left: 15px"><br>
     </div>
 
-
+    <!--DELETE-->
     <script>
         function runFlower_Select() {
             document.getElementById("flowerSelect").value = document.getElementById("flowers_Dropdown").value;
-
-            var flSel = document.getElementById("flowerSelect").value;
-
-            var db = openDatabase('flowers2019.db');
-
-            //establish a connection with the database file
-            conn = sqlite3.connect('flowers2019.db');
-            //create a cursor to query the database; does NOT change
-            cursorObj = conn.cursor();
-
-            cursorObj.execute("SELECT * FROM SIGHTINGS s WHERE s.name = flSel");
-            var items = cursorObj.fetchall();
-
-            document.getElementById("queriedRes").value = items;
-        
         }
     </script>
 
