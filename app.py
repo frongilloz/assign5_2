@@ -19,7 +19,7 @@ conn.close()
 
 @app.route('/flowers')
 def flowers():
-    return render_template('flowers_2.html',itemsFlowers=itemsFlowers)
+    return render_template('flowers.html',itemsFlowers=itemsFlowers)
 
 @app.route('/')
 def index():
