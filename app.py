@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 
 app = Flask(__name__)
@@ -22,14 +22,21 @@ itemsSightings = cursorObj.fetchall()
 conn.close()
 
 
-@app.route('/flowers')
+@app.route('/flowers', methods=["GET", "POST"])
 def flowers():
+    # form = Form()
+
+    if request.method == 'POST':
+        # cursorObj = conn.execute("SELECT * FROM Sightings WHERE Sightings.name = request.form.value ORDER BY sighted LIMIT 10")
+        print(request.form)
     return render_template('flowers.html',itemsFlowers=itemsFlowers)
 
-@app.route('/')
+
+
+@app.route('/', methods=["GET", "POST"])
 def index():
     return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -13,11 +13,12 @@
             Flower Name
           </button>
           <div class="dropdown-menu" aria-labelledby="flowers_Dropdown">
+              <form method="POST">
 
               {% for i1, i2, i3 in itemsFlowers %}
-                <a class="dropdown-item" href="#">{{ i3 }}</a>
+                <input type = "submit" class="dropdown-item" value="{{ i3 }}">
               {% endfor %}
-
+              </form>
           </div>
         </div>
 
