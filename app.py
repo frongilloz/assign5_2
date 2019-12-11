@@ -36,8 +36,8 @@ def select_flower():
     cursorObj.execute("SELECT * FROM SIGHTINGS WHERE name = \"" + sel_Flower + "\" ORDER by date(sighted) DESC limit 10")
     # save the queried tuples to the "flowerMostRec"
     flowerMostRec = cursorObj.fetchall()
-
     # close the connection to the database
+    conn.close()
 
     # render the next template to display the data
     return render_template('flowers_display10.html', flowerMostRec=flowerMostRec)

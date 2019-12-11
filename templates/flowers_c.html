@@ -13,28 +13,28 @@
 
         <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
 
+        <div class="dropdown">
+
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="flowers_Dropdown_Button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+            Flower Name
+          </button>
 
             <form action="/select_flower" method="post">
 
-            <!---<div class="dropdown"> -->
-
-                <select name="sel_Flower" id="flowers_Dropdown" onchange="runFlower_Select()">
+                <select  name="sel_Flower" id="flowers_Dropdown" onchange="runFlower_Select()">
                       <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
                           {% for i1, i2, i3 in itemsFlowers %}
                             <!---<a class="dropdown-item" href="#" id="selected_Flower" > -->
-                                <option value="{{ i3 }}" >{{ i3 }}</option>
+                                <option value="{{ i3 }}">{{ i3 }}</option>
                             <!---</a> -->
                           {% endfor %}
 
                       </div>
                 </select>
 
-            <!---</div> -->
-
-            <input type="submit" button type="button" class="btn btn-info">
-            </input>
-
+                <input type="submit" value="Submit"></input>
 
             </form>
 
@@ -44,7 +44,7 @@
             </div>
 
 
-
+        </div>
         </div>
     </div>
     </div>
