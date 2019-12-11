@@ -28,6 +28,7 @@ def flowers():
 
     if request.method == 'POST':
         # cursorObj = conn.execute("SELECT * FROM Sightings WHERE Sightings.name = request.form.value ORDER BY sighted LIMIT 10")
+        # Helpful Video: https://www.youtube.com/watch?v=I2dJuNwlIH0
         print(request.form)
     return render_template('flowers.html',itemsFlowers=itemsFlowers)
 
