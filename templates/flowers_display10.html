@@ -5,11 +5,15 @@
 {% block content %}
 <body style="background-color: rgba(49,73,147,0.63)">
 
-    <div style="padding-top: 100px; padding-left: 150px">
+<div class="container-fluid">
+    <div style="padding-top: 100px; padding-left: 100px">
+    <div class="card">
+        <div class="card-body">
 
         <p><b>The 10 most recent sightings of selected flower:</b></p>
     <br>
 
+    <div class="container-fluid">
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
@@ -30,6 +34,7 @@
           {% endfor %}
           </tbody>
         </table>
+    </div>
 
         <!--This needs to be POSTED INPUT variables that is read into the map-->
         <p style="padding-top: 35px"><b>What would you like to do next?</b></p>
@@ -37,6 +42,9 @@
                 <button type="button" class="btn btn-dark">Insert</button>
 
     </div>
+    </div>
+    </div>
+</div>
 
 
 </body>

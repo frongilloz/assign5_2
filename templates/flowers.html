@@ -5,7 +5,11 @@
 {% block content %}
 <body style="background-color: rgba(49,73,147,0.63)">
 
-    <div style="padding-top: 100px; padding-left: 150px">
+<div class="container-fluid">
+    <div style="padding-top: 100px; padding-left: 100px">
+    <div class="card">
+        <div class="card-body">
+
         <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
 
         <div class="dropdown">
@@ -32,13 +36,21 @@
                 <input type="submit" value="Submit"></input>
 
             </form>
+
+            <!--DELETE: In HTML Select Options-->
+            <div style="padding-top: 50px">
+                <input type="text" id="flowerSelect" placeholder="Get value on option select" style="padding-left: 15px"><br>
+            </div>
+
+
         </div>
-
-
-    <!--In HTML Select Options-->
-    <div style="padding-left: 150px; padding-top: 50px">
-        <input type="text" id="flowerSelect" placeholder="Get value on option select" style="padding-left: 15px"><br>
+        </div>
     </div>
+    </div>
+</div>
+
+
+
 
     <!--DELETE-->
     <script>
