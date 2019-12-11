@@ -1,0 +1,33 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Flowers{% endblock %}
+
+{% block content %}
+<body style="background-image: url('static/fl4.jpeg');  background-size: cover; background-position: center center;">
+<!----<body style="background-color: rgba(49,73,147,0.63)">--->
+
+<div class="container-fluid">
+    <div style="padding-top: 100px; padding-left: 70px">
+    <div class="card">
+        <div class="card-body">
+
+        <h3>Update Flowers</h3>
+
+        <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
+
+
+            <form action="/update_flower" method="post">
+
+
+            </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+</body>
+
+{% endblock %}

@@ -10,7 +10,7 @@
     <div style="padding-top: 100px; padding-left: 70px">
     <div class="card">
         <div class="card-body">
-
+        <h5>Query</h5>
         <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
 
 
@@ -35,8 +35,37 @@
             <input type="submit" button type="button" class="btn btn-info">
             </input>
 
-
             </form>
+
+            <!-------->
+            <div style="padding-top: 15px">
+            <hr>
+                </div>
+            <h5>Modifications</h5>
+
+            <!--This needs to be POSTED INPUT variables that is read into the map-->
+            <p><b>To Update an existing flower: </b></p>
+            <form action="/updated_flower" method="post">
+                    <button type="button" class="btn btn-warning">Update</button>
+            </form>
+
+            <p><b>To Insert a new flower: </b></p>
+            <form action="/insert_flower" method="post">
+                    <!--Insert: Requires 3 input text boxes-->
+                    <p>Please enter the new flower's: </p>
+                    <p>Genus:
+                    <input type="text" name="in_genus"></input> </p>
+
+                    <p>Species:
+                    <input type="text" name="in_species"></input> </p>
+
+                    <p>Common Name:
+                    <input type="text" name="in_comname"></input> </p>
+
+
+                    <button type="button" class="btn btn-success">Insert</button>
+            </form>
+
 
             <!--DELETE: In HTML Select Options-->
             <div style="padding-top: 50px">

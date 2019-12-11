@@ -42,6 +42,34 @@ def select_flower():
     # render the next template to display the data
     return render_template('flowers_display10.html', flowerMostRec=flowerMostRec)
 
+# Need an app route for update display the changes on the front end
+
+# Need an app route for insertion specification (instructions)
+@app.route('/insert_flower', methods = ['POST'])
+def insert_flower():
+    # Request the receive input (POST) to new flower
+    in_genus = request.form['in_genus']
+    print("The new Flower's genus is '" + in_genus + "'")
+
+    in_genus = request.form['in_species']
+    print("The new Flower's species is '" + in_species + "'")
+
+
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+    # Run the Query on SIGHTINGS table to get the 10 most recent sightings of the selected flower (from user input)
+    cursorObj.execute("SELECT * FROM SIGHTINGS WHERE name = \"" + sel_Flower + "\" ORDER by date(sighted) DESC limit 10")
+    # save the queried tuples to the "flowerMostRec"
+    flowerMostRec = cursorObj.fetchall()
+    # close the connection to the database
+    conn.close()
+
+    # render the next template to display the data
+    return render_template('insert_flower.html', flowerMostRec=flowerMostRec)
+# Need an app route for update display the changes on the front end
+
 # App route for the page of Flowers on the web app
 @app.route('/flowers')
 def flowers():
