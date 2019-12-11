@@ -1,0 +1,46 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Flowers Display Page{% endblock %}
+
+{% block content %}
+<body style="background-color: rgba(49,73,147,0.63)">
+
+    <div style="padding-top: 100px; padding-left: 150px">
+
+        <p><b>The 10 most recent sightings of selected flower:</b></p>
+    <br>
+
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name of Flower</th>
+              <th scope="col">Person Who Sighted Flower</th>
+              <th scope="col">Location</th>
+              <th scope="col">Date Sighted</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for i1, i2, i3, i4 in flowerMostRec %}
+            <tr>
+                <td>{{ i1 }}</td>
+                <td>{{ i2 }}</td>
+                <td>{{ i3 }}</td>
+                <td>{{ i4 }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+
+        <p style="padding-top: 35px"><b>What would you like to do next?</b></p>
+
+                <button type="button" class="btn btn-light">Update</button>
+                <button type="button" class="btn btn-dark">Insert</button>
+
+        </div>
+
+    </div>
+
+
+</body>
+{% endblock %}

@@ -6,7 +6,7 @@
 <body style="background-color: rgba(49,73,147,0.63)">
 
     <div style="padding-top: 100px; padding-left: 150px">
-        <p><b>Choose the flower  of interest: </b></p>
+        <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
 
         <div class="dropdown">
 
@@ -14,34 +14,33 @@
                   aria-haspopup="true" aria-expanded="false">
             Flower Name
           </button>
-            <select id="flowers_Dropdown" onchange="runFlower_Select()">
-                  <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
-                      {% for i1, i2, i3 in itemsFlowers %}
-                        <a class="dropdown-item" href="#" id="selected_Flower" >
-                            <option value="{{ i3 }}">{{ i3 }}</option>
-                        </a>
-                      {% endfor %}
+            <form action="/select_flower" method="post">
 
-                  </div>
-            </select>
+                <select  name="sel_Flower" id="flowers_Dropdown" onchange="runFlower_Select()">
+                      <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
+
+                          {% for i1, i2, i3 in itemsFlowers %}
+                            <!---<a class="dropdown-item" href="#" id="selected_Flower" > -->
+                                <option value="{{ i3 }}">{{ i3 }}</option>
+                            <!---</a> -->
+                          {% endfor %}
+
+                      </div>
+                </select>
+
+                <input type="submit" value="Submit"></input>
+
+            </form>
         </div>
 
-    <p style="padding-top: 15px">Show 10 Most Recent Sightings of Selected Flower:</p>
-      <!--Display the 10 most recent sightings--->
 
 
-    <p style="padding-top: 35px"><b>What would you like to do next?</b></p>
-
-        <button type="button" class="btn btn-light">Update</button>
-        <button type="button" class="btn btn-dark">Insert</button>
-
-    </div>
-
+    <!--In HTML Select Options-->
     <div style="padding-left: 150px; padding-top: 50px">
         <input type="text" id="flowerSelect" placeholder="Get value on option select" style="padding-left: 15px"><br>
-            <input type="text" id="queriedRes" placeholder="Wait" style="padding-left: 15px"><br>
     </div>
+
 
     <script>
         function runFlower_Select() {
