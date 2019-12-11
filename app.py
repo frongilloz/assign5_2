@@ -13,6 +13,11 @@ cursorObj.execute("SELECT * FROM FLOWERS")
 # save fetch all to itemsFlowers list; to be referenced in templates
 itemsFlowers = cursorObj.fetchall()
 
+# All items retrieval from SIGHTINGS table in DB
+cursorObj = conn.execute("SELECT * FROM SIGHTINGS")
+# save fetch all to itemsSightings list; to be referenced in templates
+itemsSightings = cursorObj.fetchall()
+
 # close the connection to the database
 conn.close()
 

@@ -3,20 +3,37 @@
 {% block title %}Flowers{% endblock %}
 
 {% block content %}
-<body style="background-color: rgba(192,238,227,0.54)">
+<body style="background-color: rgba(49,73,147,0.63)">
 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Flower Name
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div style="padding-top: 100px; padding-left: 150px">
+        <p><b>Choose the flower  of interest: </b></p>
 
-          {% for i1, i2, i3 in itemsFlowers %}
-            <a class="dropdown-item" href="#">{{ i3 }}</a>
-          {% endfor %}
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="flowers_Dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Flower Name
+          </button>
+          <div class="dropdown-menu" aria-labelledby="flowers_Dropdown">
 
-      </div>
+              {% for i1, i2, i3 in itemsFlowers %}
+                <a class="dropdown-item" href="#">{{ i3 }}</a>
+              {% endfor %}
+
+          </div>
+        </div>
+
+    <p style="padding-top: 15px">Show 10 Most Recent Sightings of Selected Flower:</p>
+      <!--Display the 10 most recent sightings--->
+
+
+    <p style="padding-top: 35px"><b>What would you like to do next?</b></p>
+
+        <button type="button" class="btn btn-light">Update</button>
+        <button type="button" class="btn btn-dark">Insert</button>
+
+
     </div>
+
+
 
 
 </body>
