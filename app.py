@@ -50,53 +50,25 @@ def select_flower():
 # Need an app route for update specification (instructions)
 @app.route('/update_flower', methods = ['POST'])
 def update_flower():
-    # Establish a connection with the database file
-    conn = sqlite3.connect('flowers2019.db')
-    # create a cursor to query the database within the app route
-    cursorObj = conn.cursor()
-
-    # # Create trigger to keep SIGHTINGS table updated as well
-    # cursorObj.execute(
-    #     "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname; END;")
-
     # Request the receive input (POST) to updated flower
     sel_comname = request.form['sel_Upd_Flower_Comname']
     print("The selected Flower is '" + sel_comname + "'")
 
-    # Run the Modification on FLOWERS table to UPDATE
-    cursorObj.execute(
-        "SELECT genus FROM FLOWERS WHERE comname = \"" + sel_comname + "\"")
-    sel_genus = convertTuple(cursorObj.fetchone())
-    print("The selected Flower's genus is '" + sel_genus + "'")
-
-    cursorObj.execute(
-        "SELECT species FROM FLOWERS WHERE comname = \"" + sel_comname + "\"")
-    sel_species = convertTuple(cursorObj.fetchone())
-    print("The selected Flower's species is '" + sel_species + "'")
-
     up_genus = request.form['up_genus']
-    if up_genus == '':
-        up_genus = sel_genus
-    print("The Flower's new genus is '" + up_genus + "'")
+    print("The new Flower's genus is '" + up_genus + "'")
 
     up_species = request.form['up_species']
-    if up_species == '':
-        up_species = sel_species
-    print("The Flower's new genus is '" + up_species + "'")
+    print("The new Flower's species is '" + up_species + "'")
 
     up_comname = request.form['up_comname']
-    if up_comname == '':
-        up_comname = sel_comname
-    print("The Flower's new genus is '" + up_comname + "'")
+    print("The new Flower's comname is '" + up_comname + "'")
 
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
     # Run the Modification on FLOWERS table to UPDATE
     cursorObj.execute("UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
-
-    cursorObj.execute(
-        "SELECT name FROM SIGHTINGS WHERE name = \"" + sel_comname + "\"")
-    sName = convertTuple(cursorObj.fetchone())
-    print("Sightings name updated to: '" + sName + "'")
-
     # Run the query to get the updated values
     cursorObj.execute(
         "SELECT * FROM FLOWERS WHERE COMNAME = \"" + up_comname +"\"")
