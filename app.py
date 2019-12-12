@@ -51,16 +51,18 @@ def insert_flower():
     in_genus = request.form['in_genus']
     print("The new Flower's genus is '" + in_genus + "'")
 
-    in_genus = request.form['in_species']
+    in_species = request.form['in_species']
     print("The new Flower's species is '" + in_species + "'")
 
+    in_comname = request.form['in_comname']
+    print("The new Flower's comname is '" + in_comname + "'")
 
     # Establish a connection with the database file
     conn = sqlite3.connect('flowers2019.db')
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
-    # Run the Query on SIGHTINGS table to get the 10 most recent sightings of the selected flower (from user input)
-    cursorObj.execute("SELECT * FROM SIGHTINGS WHERE name = \"" + sel_Flower + "\" ORDER by date(sighted) DESC limit 10")
+    # Run the Modification on FLOWERS table to insert
+    #cursorObj.execute("INSERT INTO FLOWERS VALUES ( \" + in_genus + " \",\" "  + in_species + ) ")
     # save the queried tuples to the "flowerMostRec"
     flowerMostRec = cursorObj.fetchall()
     # close the connection to the database
