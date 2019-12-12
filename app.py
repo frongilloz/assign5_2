@@ -55,9 +55,9 @@ def update_flower():
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
 
-    # # Create trigger to keep SIGHTINGS table updated as well
+    # Create trigger to keep SIGHTINGS table updated as well
     # cursorObj.execute(
-    #     "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname; END;")
+    #     "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname WHERE name = old.comname; END;")
 
     # Request the receive input (POST) to updated flower
     sel_comname = request.form['sel_Upd_Flower_Comname']
@@ -74,7 +74,7 @@ def update_flower():
     sel_species = convertTuple(cursorObj.fetchone())
     print("The selected Flower's species is '" + sel_species + "'")
 
-
+    # Retrieve the updated attributes
     up_genus = request.form['up_genus']
     print("The new Flower's genus is '" + up_genus + "'")
 
@@ -84,6 +84,7 @@ def update_flower():
     up_comname = request.form['up_comname']
     print("The new Flower's comname is '" + up_comname + "'")
 
+    # Check if updated attributes are blank
     up_genus = request.form['up_genus']
     if up_genus == '':
         up_genus = sel_genus
@@ -92,21 +93,22 @@ def update_flower():
     up_species = request.form['up_species']
     if up_species == '':
         up_species = sel_species
-    print("The Flower's new genus is '" + up_species + "'")
+    print("The Flower's new species is '" + up_species + "'")
 
     up_comname = request.form['up_comname']
     if up_comname == '':
         up_comname = sel_comname
-    print("The Flower's new genus is '" + up_comname + "'")
+    print("The Flower's new comname is '" + up_comname + "'")
 
     # Run the Modification on FLOWERS table to UPDATE
     cursorObj.execute(
         "UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
 
     cursorObj.execute(
-        "SELECT name FROM SIGHTINGS WHERE name = \"" + sel_comname + "\"")
-    sName = convertTuple(cursorObj.fetchone())
-    print("Sightings name updated to: '" + sName + "'")
+        "SELECT name FROM SIGHTINGS WHERE name = \"" + up_comname + "\"")
+    print(cursorObj.fetchone())
+    # sName = convertTuple(cursorObj.fetchone())
+    # print("Sightings name updated to: '" + sName + "'")
 
     # Run the query to get the updated values
     cursorObj.execute(
