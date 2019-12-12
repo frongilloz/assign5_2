@@ -17,8 +17,8 @@
             <form action="/select_flower" method="post">
 
             <!---<div class="dropdown"> -->
-
-                <select name="sel_Flower" id="flowers_Dropdown" onchange="runFlower_Select()">
+            <div class="col-4">
+                <select name="sel_Flower" id="flowers_Dropdown" onchange="runFlower_Select()" class="custom-select">
                       <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
                           {% for i1, i2, i3 in itemsFlowers %}
@@ -29,11 +29,14 @@
 
                       </div>
                 </select>
+            </div>
 
             <!---</div> -->
 
-            <input type="submit" button type="button" class="btn btn-info">
-            </input>
+            <div style="padding-top: 10px; padding-left: 15px">
+                <input type="submit" button type="button" class="btn btn-info" value="Search">
+                </input>
+            </div>
 
             </form>
 
@@ -48,26 +51,41 @@
 
             <div style="padding-left: 20px">
                 <p>Choose an <b>existing</b> flower to update:</p>
-                <form action="/update_flower" method="post">
-                        <select name="sel_Upd_Flower_Comname" id="flowers_Dropdown2">
-                              <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
+                <form action="/update_flower" method="post" >
+                <div class="col-4">
+                            <select name="sel_Upd_Flower_Comname" id="flowers_Dropdown2" class="custom-select">
+                                  <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
-                                  {% for i1, i2, i3 in itemsFlowers %}
-                                        <option value="{{ i3 }}" >{{ i3 }}</option>
-                                  {% endfor %}
+                                      {% for i1, i2, i3 in itemsFlowers %}
+                                            <option value="{{ i3 }}" >{{ i3 }}</option>
+                                      {% endfor %}
 
-                              </div>
-                        </select>
+                                  </div>
+                            </select>
+                </div>
 
                     <p style="padding-top: 20px">Please enter the <b>updated</b> flower's: </p>
-                        <p>Genus:
-                        <input type="text" name="up_genus"></input> </p>
+                     <div class="form-group">
+                         <label for="up_genus_input"><b>Genus</b></label>
+                         <div class="col-4">
+                             <input type="text" name="up_genus" class="form-control" id="up_genus_input" placeholder="Enter Genus"></input>
+                         </div>
+                     </div>
 
-                        <p>Species:
-                        <input type="text" name="up_species"></input> </p>
+                    <div class="form-group">
+                     <label for="up_species_input"><b>Species</b></label>
+                     <div class="col-4">
+                        <input type="text" name="up_species" class="form-control" id="up_species_input" placeholder="Enter Species"></input>
+                         </div>
+                     </div>
 
-                        <p>Common Name:
-                        <input type="text" name="up_comname"></input> </p>
+                    <div class="form-group">
+                        <label for="up_comname_input"><b>Common Name</b></label>
+                     <div class="col-4">
+                        <input type="text" name="up_comname" class="form-control" id="up_comname_input" placeholder="Enter Common Name"></input>
+                     </div>
+                    </div>
+
 
                         <input type="submit" button type="button" class="btn btn-warning" value="Update">
                          </input>
@@ -82,14 +100,27 @@
                     <form action="/insert_flower" method="post">
                             <!--Insert: Requires 3 input text boxes-->
                         <p>Please enter the <b>new</b> flower's: </p>
-                            <p>Genus:
-                            <input type="text" name="in_genus"></input> </p>
+                        <div class="form-group">
+                         <label for="in_genus_input"><b>Genus</b></label>
+                             <div class="col-4">
+                                <input type="text" name="in_genus" class="form-control" id="in_genus_input" placeholder="Enter Genus"></input>
 
-                            <p>Species:
-                            <input type="text" name="in_species"></input> </p>
+                             </div>
+                        </div>
 
-                            <p>Common Name:
-                            <input type="text" name="in_comname"></input> </p>
+                        <div class="form-group">
+                         <label for="in_species_input"><b>Species</b></label>
+                             <div class="col-4">
+                                <input type="text" name="in_species" class="form-control" id="in_species_input" placeholder="Enter Species"></input>
+                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="in_commname_input"><b>Common Name</b></label>
+                             <div class="col-4">
+                                 <input type="text" name="in_comname" class="form-control" id="in_commname_input" placeholder="Enter Common Name"></input>
+                             </div>
+                        </div>
 
                              <input type="submit" button type="button" class="btn btn-success" value="Insert">
                              </input>

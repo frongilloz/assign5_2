@@ -151,7 +151,7 @@ def update_flower():
     conn.close()
 
     # render the next template to display the data
-    return render_template('update_flower.html', query_updated=query_updated)
+    return render_template('update_flower.html', query_updated=query_updated, sel_Flower=sel_comname)
 
 
 # Need an app route for insertion specification (instructions)
@@ -215,6 +215,33 @@ def login():
 @app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
+
+@app.route('/sign_up_form', methods = ['POST'])
+def sign_up_form():
+    # Request the receive input (POST) to new user
+    fullName = request.form['fullName']
+    print("The user's full name is '" + fullName + "'")
+
+    email = request.form['email']
+    print("The user's email is '" + email + "'")
+
+    password = request.form['password']
+    print("The user's password is '" + password + "'")
+
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+    # Run the Modification on FLOWERS table to insert
+    cursorObj.execute(
+        "INSERT INTO USERS VALUES (\"" + fullName + "\" ,\"" + email + "\" ,\"" + password + "\")")
+    # commit these changes
+    conn.commit()
+    # close the connection to the database
+    conn.close()
+
+    return render_template('sign_up_complete.html')
+
 
 # App route for the Home page on the web app
 @app.route('/')
