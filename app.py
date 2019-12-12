@@ -18,6 +18,14 @@ cursorObj = conn.execute("SELECT * FROM SIGHTINGS")
 # save fetch all to itemsSightings list; to be referenced in templates
 itemsSightings = cursorObj.fetchall()
 
+# Create trigger to keep SIGHTINGS table updated as well
+cursorObj.execute(
+    "SELECT name FROM sqlite_master WHERE type = 'trigger' AND name = 'up_flowers';"
+)
+if cursorObj.rowcount == 0:
+    cursorObj.execute(
+        "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname WHERE name = old.comname; END;")
+
 # close the connection to the database
 conn.close()
 
@@ -99,10 +107,6 @@ def update_flower():
     if up_comname == '':
         up_comname = sel_comname
     print("The Flower's new comname is '" + up_comname + "'")
-
-    # Run the Modification on FLOWERS table to UPDATE
-    cursorObj.execute(
-        "UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
 
     cursorObj.execute(
         "SELECT name FROM SIGHTINGS WHERE name = \"" + up_comname + "\"")
