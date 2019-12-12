@@ -21,11 +21,6 @@ itemsSightings = cursorObj.fetchall()
 # close the connection to the database
 conn.close()
 
-# Python3 code to convert tuple into string
-def convertTuple(tup):
-    str =  ''.join(tup)
-    return str
-
 # This is the app route for the "Flower" Page form to receive user input
 @app.route('/select_flower', methods = ['POST'])
 def select_flower():
