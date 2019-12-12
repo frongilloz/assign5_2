@@ -108,6 +108,28 @@ def update_flower():
         up_comname = sel_comname
     print("The Flower's new comname is '" + up_comname + "'")
 
+    cursorObj.execute(
+        "SELECT name FROM SIGHTINGS WHERE name = \"" + up_comname + "\"")
+    print(cursorObj.fetchone())
+    # sName = convertTuple(cursorObj.fetchone())
+    # print("Sightings name updated to: '" + sName + "'")
+
+    # Check if updated attributes are blank
+    up_genus = request.form['up_genus']
+    if up_genus == '':
+        up_genus = sel_genus
+    print("The Flower's new genus is '" + up_genus + "'")
+
+    up_species = request.form['up_species']
+    if up_species == '':
+        up_species = sel_species
+    print("The Flower's new species is '" + up_species + "'")
+
+    up_comname = request.form['up_comname']
+    if up_comname == '':
+        up_comname = sel_comname
+    print("The Flower's new comname is '" + up_comname + "'")
+
     # Run the Modification on FLOWERS table to UPDATE
     cursorObj.execute(
         "UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
