@@ -1,0 +1,53 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <body style="background-image: url('static/fl4.jpeg');  background-size: cover; background-position: center center;">
+
+    <div class="container-fluid">
+        <div style="padding-top: 100px; padding-left: 70px">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 500px;">
+                <h4 class="card-title mt-3 text-center">Login to SSWC Account</h4>
+                    <p class="text-center">Welcome back!</p>
+                    <form>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                    <img src="/static/email.png"  height="20" width="30">
+                            </span>
+                         </div>
+                        <input name="" class="form-control" placeholder="Enter email address" type="email">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                    <img src="/static/key.png"  height="20" width="30">
+                            </span>
+                        </div>
+                        <input class="form-control" placeholder="Enter password" type="password">
+                    </div> <!-- form-group// -->
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                    </div> <!-- form-group// -->
+
+                    <p class="text-center">Don't have an account? <a href="/sign_up">Sign Up</a> </p>
+                </form>
+            </article>
+            </div> <!-- end card -->
+
+            </div>
+        </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}

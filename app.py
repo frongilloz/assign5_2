@@ -18,8 +18,21 @@ cursorObj = conn.execute("SELECT * FROM SIGHTINGS")
 # save fetch all to itemsSightings list; to be referenced in templates
 itemsSightings = cursorObj.fetchall()
 
+# Create trigger to keep SIGHTINGS table updated as well
+cursorObj.execute(
+    "SELECT name FROM sqlite_master WHERE type = 'trigger' AND name = 'up_flowers';"
+)
+if cursorObj.rowcount == 0:
+    cursorObj.execute(
+        "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname WHERE name = old.comname; END;")
+
 # close the connection to the database
 conn.close()
+
+# Python3 code to convert tuple into string
+def convertTuple(tup):
+    str =  ''.join(tup)
+    return str
 
 # This is the app route for the "Flower" Page form to receive user input
 @app.route('/select_flower', methods = ['POST'])
@@ -40,15 +53,36 @@ def select_flower():
     conn.close()
 
     # render the next template to display the data
-    return render_template('flowers_display10.html', flowerMostRec=flowerMostRec)
+    return render_template('flowers_display10.html', flowerMostRec=flowerMostRec, sel_Flower=sel_Flower)
 
-# Need an app route for update specification (instructions)
+# Update App Route
 @app.route('/update_flower', methods = ['POST'])
 def update_flower():
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+
+    # Create trigger to keep SIGHTINGS table updated as well
+    # cursorObj.execute(
+    #     "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname WHERE name = old.comname; END;")
+
     # Request the receive input (POST) to updated flower
     sel_comname = request.form['sel_Upd_Flower_Comname']
     print("The selected Flower is '" + sel_comname + "'")
 
+    # Query FLOWERS table to get the initial attributes of the selected flower to update
+    cursorObj.execute(
+        "SELECT genus FROM FLOWERS WHERE comname = \"" + sel_comname + "\"")
+    sel_genus = convertTuple(cursorObj.fetchone())
+    print("The selected Flower's genus is '" + sel_genus + "'")
+
+    cursorObj.execute(
+        "SELECT species FROM FLOWERS WHERE comname = \"" + sel_comname + "\"")
+    sel_species = convertTuple(cursorObj.fetchone())
+    print("The selected Flower's species is '" + sel_species + "'")
+
+    # Retrieve the updated attributes
     up_genus = request.form['up_genus']
     print("The new Flower's genus is '" + up_genus + "'")
 
@@ -58,17 +92,39 @@ def update_flower():
     up_comname = request.form['up_comname']
     print("The new Flower's comname is '" + up_comname + "'")
 
-    # Establish a connection with the database file
-    conn = sqlite3.connect('flowers2019.db')
-    # create a cursor to query the database within the app route
-    cursorObj = conn.cursor()
+    # Check if updated attributes are blank
+    up_genus = request.form['up_genus']
+    if up_genus == '':
+        up_genus = sel_genus
+    print("The Flower's new genus is '" + up_genus + "'")
+
+    up_species = request.form['up_species']
+    if up_species == '':
+        up_species = sel_species
+    print("The Flower's new species is '" + up_species + "'")
+
+    up_comname = request.form['up_comname']
+    if up_comname == '':
+        up_comname = sel_comname
+    print("The Flower's new comname is '" + up_comname + "'")
+
     # Run the Modification on FLOWERS table to UPDATE
-    cursorObj.execute("UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
+    cursorObj.execute(
+        "UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
+
+    cursorObj.execute(
+        "SELECT name FROM SIGHTINGS WHERE name = \"" + up_comname + "\"")
+    print(cursorObj.fetchone())
+    # sName = convertTuple(cursorObj.fetchone())
+    # print("Sightings name updated to: '" + sName + "'")
+
     # Run the query to get the updated values
     cursorObj.execute(
-        "SELECT * FROM FLOWERS WHERE COMNAME = \"" + up_comname +"\"")
+        "SELECT * FROM FLOWERS WHERE COMNAME = \"" + up_comname + "\"")
     # save the queried tuple to the "query_updated"
     query_updated = cursorObj.fetchall()
+    # commit these changes
+    conn.commit()
     # close the connection to the database
     conn.close()
 
@@ -95,6 +151,8 @@ def insert_flower():
     cursorObj = conn.cursor()
     # Run the Modification on FLOWERS table to insert
     cursorObj.execute("INSERT INTO FLOWERS VALUES (\"" + in_genus + "\" ,\"" + in_species + "\" ,\"" + in_comname + "\")")
+    # commit these changes
+    conn.commit()
     # Run the query to get the insertion values
     cursorObj.execute(
         "SELECT * FROM FLOWERS WHERE COMNAME = \"" + in_comname +"\"")
@@ -110,7 +168,31 @@ def insert_flower():
 # App route for the page of Flowers on the web app
 @app.route('/flowers')
 def flowers():
+    # Every time /flowers is loaded, refresh/update the itemsFlowers
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+    # All items retrieval from FLOWERS table in DB
+    cursorObj.execute("SELECT * FROM FLOWERS")
+    # save fetch all to itemsFlowers list; to be referenced in templates
+    itemsFlowers = cursorObj.fetchall()
+    # close the connection to the database
+    conn.close()
+
     return render_template('flowers.html', itemsFlowers=itemsFlowers)
+
+# App route to login on the web app
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+# Need logout functionality
+
+# App route to sign up on the web app
+@app.route('/sign_up')
+def sign_up():
+    return render_template('sign_up.html')
 
 # App route for the Home page on the web app
 @app.route('/')
