@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
 
 app = Flask(__name__)
@@ -29,13 +29,15 @@ if cursorObj.rowcount == 0:
 # close the connection to the database
 conn.close()
 
+
 # Python3 code to convert tuple into string
 def convertTuple(tup):
-    str =  ''.join(tup)
+    str = ''.join(tup)
     return str
 
+
 # This is the app route for the "Flower" Page form to receive user input
-@app.route('/select_flower', methods = ['POST'])
+@app.route('/select_flower', methods=['POST'])
 def select_flower():
     # Request the receive input (POST) to get the selected flower
     sel_Flower = request.form['sel_Flower']
@@ -46,7 +48,8 @@ def select_flower():
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
     # Run the Query on SIGHTINGS table to get the 10 most recent sightings of the selected flower (from user input)
-    cursorObj.execute("SELECT * FROM SIGHTINGS WHERE name = \"" + sel_Flower + "\" ORDER by date(sighted) DESC limit 10")
+    cursorObj.execute(
+        "SELECT * FROM SIGHTINGS WHERE name = \"" + sel_Flower + "\" ORDER by date(sighted) DESC limit 10")
     # save the queried tuples to the "flowerMostRec"
     flowerMostRec = cursorObj.fetchall()
     # close the connection to the database
@@ -55,8 +58,9 @@ def select_flower():
     # render the next template to display the data
     return render_template('flowers_display10.html', flowerMostRec=flowerMostRec, sel_Flower=sel_Flower)
 
+
 # Update App Route
-@app.route('/update_flower', methods = ['POST'])
+@app.route('/update_flower', methods=['POST'])
 def update_flower():
     # Establish a connection with the database file
     conn = sqlite3.connect('flowers2019.db')
@@ -155,7 +159,7 @@ def update_flower():
 
 
 # Need an app route for insertion specification (instructions)
-@app.route('/insert_sighting', methods = ['POST'])
+@app.route('/insert_sighting', methods=['POST'])
 def insert_sighting():
     # Request the receive input (POST) to new SIGHTING
     in_fl_name = request.form['sel_InsS_Flower_Comname']
@@ -176,12 +180,12 @@ def insert_sighting():
     cursorObj = conn.cursor()
     # Run the Modification on FLOWERS table to insert
     cursorObj.execute("INSERT INTO SIGHTINGS VALUES (\"" + in_fl_name + "\" ,\"" + in_person + "\" ,\""
-                                                         + in_location + "\" ,\"" + in_sighted + "\")")
+                      + in_location + "\" ,\"" + in_sighted + "\")")
     # commit these changes
     conn.commit()
     # Run the query to get the insertion values
     cursorObj.execute(
-        "SELECT * FROM SIGHTINGS WHERE name = \"" + in_fl_name +"\" AND sighted = \"" + in_sighted + "\"")
+        "SELECT * FROM SIGHTINGS WHERE name = \"" + in_fl_name + "\" AND sighted = \"" + in_sighted + "\"")
     # save the queried tuple to the "query_inserted"
     query_inserted = cursorObj.fetchall()
     # close the connection to the database
@@ -208,19 +212,44 @@ def flowers():
 
     return render_template('flowers.html', itemsFlowers=itemsFlowers)
 
+
 # App route to login on the web app
 @app.route('/login')
 def login():
     return render_template('login.html')
 
-# Need logout functionality
+
+# App route to login on the web app
+@app.route('/login_form', methods=['POST'])
+def login_form():
+    # Request the receive input (POST) to new user
+    email = request.form['login_email']
+    print("The user's email is '" + email + "'")
+
+    password = request.form['login_pw']
+    print("The user's password is '" + password + "'")
+
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+    # All items retrieval from FLOWERS table in DB
+    cursorObj.execute("SELECT fullName FROM USERS WHERE email = \"" + email + "\"")
+    # save fetch all to itemsFlowers list; to be referenced in templates
+    query_name = convertTuple(cursorObj.fetchone())
+    # close the connection to the database
+    conn.close()
+
+    return render_template('login_success.html', query_name=query_name)
+
 
 # App route to sign up on the web app
 @app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
 
-@app.route('/sign_up_form', methods = ['POST'])
+
+@app.route('/sign_up_form', methods=['POST'])
 def sign_up_form():
     # Request the receive input (POST) to new user
     fullName = request.form['fullName']
