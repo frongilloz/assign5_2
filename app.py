@@ -42,7 +42,6 @@ def select_flower():
     # render the next template to display the data
     return render_template('flowers_display10.html', flowerMostRec=flowerMostRec)
 
-# Need an app route for update display the changes on the front end
 
 # Need an app route for insertion specification (instructions)
 @app.route('/insert_flower', methods = ['POST'])
@@ -62,15 +61,18 @@ def insert_flower():
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
     # Run the Modification on FLOWERS table to insert
-    #cursorObj.execute("INSERT INTO FLOWERS VALUES ( \" + in_genus + " \",\" "  + in_species + ) ")
-    # save the queried tuples to the "flowerMostRec"
-    flowerMostRec = cursorObj.fetchall()
+    cursorObj.execute("INSERT INTO FLOWERS VALUES (\"" + in_genus + "\" ,\"" + in_species + "\" ,\"" + in_comname + "\")")
+    # Run the query to get the insertion values
+    cursorObj.execute(
+        "SELECT * FROM FLOWERS WHERE COMNAME = \"" + in_comname +"\"")
+    # save the queried tuple to the "query_inserted"
+    query_inserted = cursorObj.fetchall()
     # close the connection to the database
     conn.close()
 
     # render the next template to display the data
-    return render_template('insert_flower.html', flowerMostRec=flowerMostRec)
-# Need an app route for update display the changes on the front end
+    return render_template('insert_flower.html', query_inserted=query_inserted)
+
 
 # App route for the page of Flowers on the web app
 @app.route('/flowers')
