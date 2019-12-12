@@ -155,36 +155,40 @@ def update_flower():
 
 
 # Need an app route for insertion specification (instructions)
-@app.route('/insert_flower', methods = ['POST'])
-def insert_flower():
-    # Request the receive input (POST) to new flower
-    in_genus = request.form['in_genus']
-    print("The new Flower's genus is '" + in_genus + "'")
+@app.route('/insert_sighting', methods = ['POST'])
+def insert_sighting():
+    # Request the receive input (POST) to new SIGHTING
+    in_fl_name = request.form['in_fl_name']
+    print("The new Sighting's Flower's name is '" + in_fl_name + "'")
 
-    in_species = request.form['in_species']
-    print("The new Flower's species is '" + in_species + "'")
+    in_person = request.form['in_person']
+    print("The new Sighting's Person name is '" + in_person + "'")
 
-    in_comname = request.form['in_comname']
-    print("The new Flower's comname is '" + in_comname + "'")
+    in_location = request.form['in_location']
+    print("The new Sighting's Location name is '" + in_location + "'")
+
+    in_sighted = request.form['in_sighted']
+    print("The new Sighting's Date is '" + in_sighted + "'")
 
     # Establish a connection with the database file
     conn = sqlite3.connect('flowers2019.db')
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
     # Run the Modification on FLOWERS table to insert
-    cursorObj.execute("INSERT INTO FLOWERS VALUES (\"" + in_genus + "\" ,\"" + in_species + "\" ,\"" + in_comname + "\")")
+    cursorObj.execute("INSERT INTO SIGHTINGS VALUES (\"" + in_fl_name + "\" ,\"" + in_person + "\" ,\""
+                                                         + in_location + "\" ,\"" + in_sighted + "\")")
     # commit these changes
     conn.commit()
     # Run the query to get the insertion values
     cursorObj.execute(
-        "SELECT * FROM FLOWERS WHERE COMNAME = \"" + in_comname +"\"")
+        "SELECT * FROM SIGHTINGS WHERE name = \"" + in_fl_name +"\" AND sighted = \"" + in_sighted + "\"")
     # save the queried tuple to the "query_inserted"
     query_inserted = cursorObj.fetchall()
     # close the connection to the database
     conn.close()
 
     # render the next template to display the data
-    return render_template('insert_flower.html', query_inserted=query_inserted)
+    return render_template('insert_flower.html', query_inserted=query_inserted, sel_Flower=in_fl_name)
 
 
 # App route for the page of Flowers on the web app

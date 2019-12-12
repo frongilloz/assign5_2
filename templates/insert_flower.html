@@ -1,6 +1,6 @@
 {% extends "maintemplate.html" %}
 
-{% block title %}Flowers Insertion Page{% endblock %}
+{% block title %}Sightings Insertion Page{% endblock %}
 
 {% block content %}
     <body style="background-image: url('static/fl4.jpeg');  background-size: cover; background-position: center center;">
@@ -10,21 +10,32 @@
         <div class="card">
             <div class="card-body">
 
+                <div class="text-center">
+                        <figure  style="padding-bottom: 10px; padding-top: 10px">
+                            <img src="/static/fl_pics/{{ sel_Flower }}.jpg" alt="{{ sel_Flower }}"
+                                 height="150" width="150" class="img-thumbnail">
+
+                            <figcaption style=" size: 10px"><b>Picture: </b>{{ sel_Flower }}</figcaption>
+                        </figure>
+                    </div>
+
                 <div class="container-fluid">
                 <table class="table table-striped">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col">Genus</th>
-                      <th scope="col">Species</th>
-                      <th scope="col">Common Name</th>
+                      <th scope="col">Flower's Name</th>
+                      <th scope="col">Person's Name</th>
+                      <th scope="col">Location</th>
+                        <th scope="col">Sighted Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for i1, i2, i3 in query_inserted %}
+                  {% for i1, i2, i3, i4 in query_inserted %}
                     <tr>
                         <td>{{ i1 }}</td>
                         <td>{{ i2 }}</td>
                         <td>{{ i3 }}</td>
+                        <td>{{ i4 }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
@@ -34,7 +45,7 @@
             <div style="padding-left: 15px; padding-top: 20px">
                 <div class="card text-white bg-success mb-3" style="max-width: 22rem;">
                   <div class="card-body">
-                    <p class="card-text">Flower successfully inserted!</p>
+                    <p class="card-text">Flower sighting successfully inserted!</p>
                   </div>
                 </div>
                 </div>
