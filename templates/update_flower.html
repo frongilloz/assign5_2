@@ -1,0 +1,50 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Flowers Update Page{% endblock %}
+
+{% block content %}
+    <body style="background-image: url('static/fl4.jpeg');  background-size: cover; background-position: center center;">
+
+    <div class="container-fluid">
+        <div style="padding-top: 100px; padding-left: 70px">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="container-fluid">
+                <table class="table table-striped">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Genus</th>
+                      <th scope="col">Species</th>
+                      <th scope="col">Common Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for i1, i2, i3 in query_updated %}
+                    <tr>
+                        <td>{{ i1 }}</td>
+                        <td>{{ i2 }}</td>
+                        <td>{{ i3 }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+
+            <div style="padding-left: 15px; padding-top: 20px">
+                <div class="card text-white bg-success mb-3" style="max-width: 22rem;">
+                  <div class="card-body">
+                    <p class="card-text">Flower successfully updated!</p>
+                  </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    </body>
+
+{% endblock %}

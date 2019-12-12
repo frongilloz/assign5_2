@@ -42,6 +42,39 @@ def select_flower():
     # render the next template to display the data
     return render_template('flowers_display10.html', flowerMostRec=flowerMostRec)
 
+# Need an app route for update specification (instructions)
+@app.route('/update_flower', methods = ['POST'])
+def update_flower():
+    # Request the receive input (POST) to updated flower
+    sel_comname = request.form['sel_Upd_Flower_Comname']
+    print("The selected Flower is '" + sel_comname + "'")
+
+    up_genus = request.form['up_genus']
+    print("The new Flower's genus is '" + up_genus + "'")
+
+    up_species = request.form['up_species']
+    print("The new Flower's species is '" + up_species + "'")
+
+    up_comname = request.form['up_comname']
+    print("The new Flower's comname is '" + up_comname + "'")
+
+    # Establish a connection with the database file
+    conn = sqlite3.connect('flowers2019.db')
+    # create a cursor to query the database within the app route
+    cursorObj = conn.cursor()
+    # Run the Modification on FLOWERS table to UPDATE
+    cursorObj.execute("UPDATE FLOWERS SET genus = \"" + up_genus + "\", species = \"" + up_species + "\", comname = \"" + up_comname + "\" WHERE comname = \"" + sel_comname + "\"")
+    # Run the query to get the updated values
+    cursorObj.execute(
+        "SELECT * FROM FLOWERS WHERE COMNAME = \"" + up_comname +"\"")
+    # save the queried tuple to the "query_updated"
+    query_updated = cursorObj.fetchall()
+    # close the connection to the database
+    conn.close()
+
+    # render the next template to display the data
+    return render_template('update_flower.html', query_updated=query_updated)
+
 
 # Need an app route for insertion specification (instructions)
 @app.route('/insert_flower', methods = ['POST'])

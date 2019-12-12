@@ -45,33 +45,62 @@
 
             <!--This needs to be POSTED INPUT variables that is read into the map-->
             <p><b>To Update an existing flower: </b></p>
-            <form action="/updated_flower" method="post">
-                    <button type="button" class="btn btn-warning">Update</button>
-            </form>
+
+            <div style="padding-left: 20px">
+                <p>Choose an <b>existing</b> flower to update:</p>
+                <form action="/update_flower" method="post">
+                        <select name="sel_Upd_Flower_Comname" id="flowers_Dropdown2">
+                              <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
+
+                                  {% for i1, i2, i3 in itemsFlowers %}
+                                        <option value="{{ i3 }}" >{{ i3 }}</option>
+                                  {% endfor %}
+
+                              </div>
+                        </select>
+
+                    <p style="padding-top: 20px">Please enter the <b>updated</b> flower's: </p>
+                        <p>Genus:
+                        <input type="text" name="up_genus"></input> </p>
+
+                        <p>Species:
+                        <input type="text" name="up_species"></input> </p>
+
+                        <p>Common Name:
+                        <input type="text" name="up_comname"></input> </p>
+
+                        <input type="submit" button type="button" class="btn btn-warning" value="Update">
+                         </input>
+                </form>
+            </div>
+
+            <hr>
+
 
             <p><b>To Insert a new flower: </b></p>
-            <form action="/insert_flower" method="post">
-                    <!--Insert: Requires 3 input text boxes-->
-                    <p>Please enter the new flower's: </p>
-                    <p>Genus:
-                    <input type="text" name="in_genus"></input> </p>
+                <div style="padding-left: 20px">
+                    <form action="/insert_flower" method="post">
+                            <!--Insert: Requires 3 input text boxes-->
+                        <p>Please enter the <b>new</b> flower's: </p>
+                            <p>Genus:
+                            <input type="text" name="in_genus"></input> </p>
 
-                    <p>Species:
-                    <input type="text" name="in_species"></input> </p>
+                            <p>Species:
+                            <input type="text" name="in_species"></input> </p>
 
-                    <p>Common Name:
-                    <input type="text" name="in_comname"></input> </p>
+                            <p>Common Name:
+                            <input type="text" name="in_comname"></input> </p>
 
-                     <input type="submit" button type="button" class="btn btn-success" value="Insert">
-                     </input>
-                    <!--<button type="button" class="btn btn-success">Insert</button>-->
-            </form>
+                             <input type="submit" button type="button" class="btn btn-success" value="Insert">
+                             </input>
+                    </form>
+                </div>
 
 
-            <!--DELETE: In HTML Select Options-->
+            <!--DELETE: In HTML Select Options
             <div style="padding-top: 50px">
                 <input type="text" id="flowerSelect" placeholder="Get value on option select" style="padding-left: 15px"><br>
-            </div>
+            </div> -->
 
 
 
