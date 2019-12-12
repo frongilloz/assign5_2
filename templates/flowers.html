@@ -10,7 +10,10 @@
     <div style="padding-top: 100px; padding-left: 70px">
     <div class="card">
         <div class="card-body">
-        <h5>Query</h5>
+        <hr>
+            <h5 style="text-align: center">Query</h5>
+        <hr>
+
         <p><b>To see 10 most recent sightings, Choose the flower of interest: </b></p>
 
 
@@ -44,15 +47,18 @@
             <div style="padding-top: 15px">
             <hr>
                 </div>
-            <h5>Modifications</h5>
+            <h5 style="text-align: center">Modifications</h5>
+            <hr>
 
+        <div class="row">
+          <div class="col">
             <!--This needs to be POSTED INPUT variables that is read into the map-->
             <p><b>To Update an existing flower: </b></p>
 
             <div style="padding-left: 20px">
-                <p>Choose an <b>existing</b> flower to update:</p>
+                <p>Choose a flower to update:</p>
                 <form action="/update_flower" method="post" >
-                <div class="col-4">
+                <div class="col-6">
                             <select name="sel_Upd_Flower_Comname" id="flowers_Dropdown2" class="custom-select">
                                   <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
@@ -67,21 +73,21 @@
                     <p style="padding-top: 20px">Please enter the <b>updated</b> flower's: </p>
                      <div class="form-group">
                          <label for="up_genus_input"><b>Genus</b></label>
-                         <div class="col-4">
+                         <div class="col-6">
                              <input type="text" name="up_genus" class="form-control" id="up_genus_input" placeholder="Enter Genus"></input>
                          </div>
                      </div>
 
                     <div class="form-group">
                      <label for="up_species_input"><b>Species</b></label>
-                     <div class="col-4">
+                     <div class="col-6">
                         <input type="text" name="up_species" class="form-control" id="up_species_input" placeholder="Enter Species"></input>
                          </div>
                      </div>
 
                     <div class="form-group">
                         <label for="up_comname_input"><b>Common Name</b></label>
-                     <div class="col-4">
+                     <div class="col-6">
                         <input type="text" name="up_comname" class="form-control" id="up_comname_input" placeholder="Enter Common Name"></input>
                      </div>
                     </div>
@@ -91,33 +97,41 @@
                          </input>
                 </form>
             </div>
+          </div>
 
             <hr>
 
+            <div class = "vertical"></div>
 
+         <div class="col">
             <p><b>To Insert a new sighting of flower: </b></p>
                 <div style="padding-left: 20px">
                     <form action="/insert_sighting" method="post">
                             <!--Insert: Requires 3 input text boxes-->
-                        <p>Please enter the <b>new</b> sightings': </p>
-                        <div class="form-group">
-                         <label for="in_fl_name_input"><b>Flower Name</b></label>
-                             <div class="col-4">
-                                <input type="text" name="in_fl_name" class="form-control" id="in_fl_name_input" placeholder="Enter Flower Name"></input>
+                        <p>Choose a flower to update:</p>
+                        <div class="col-6" style="padding-bottom: 10px">
+                                    <select name="sel_InsS_Flower_Comname" id="flowers_Dropdown3" class="custom-select">
+                                          <div class="dropdown-menu" aria-labelledby="flowers_Dropdown_Button">
 
-                             </div>
+                                              {% for i1, i2, i3 in itemsFlowers %}
+                                                    <option value="{{ i3 }}" >{{ i3 }}</option>
+                                              {% endfor %}
+
+                                          </div>
+                                    </select>
                         </div>
 
+                        <p style="padding-top: 20px">Please enter the <b>new</b> sightings': </p>
                         <div class="form-group">
                          <label for="in_person_input"><b>Person Name Who Spotted</b></label>
-                             <div class="col-4">
+                             <div class="col-6">
                                 <input type="text" name="in_person" class="form-control" id="in_person_input" placeholder="Enter Person Name"></input>
                              </div>
                         </div>
 
                         <div class="form-group">
                          <label for="in_location_input"><b>Location</b></label>
-                             <div class="col-4">
+                             <div class="col-6">
                                 <input type="text" name="in_location" class="form-control" id="in_location_input" placeholder="Enter Location"></input>
                              </div>
                         </div>
@@ -125,7 +139,7 @@
                         <div class="form-group">
                             <label for="in_location_input"><b>Sighted Date</b></label>
                             <p style="font-size: 13px"><b>Format:</b> May 25, 2006; enter: 2006-05-25</p>
-                             <div class="col-4">
+                             <div class="col-6">
                                  <input type="text" name="in_sighted" class="form-control" id="in_location_input" placeholder="Enter Sighted Date"></input>
                              </div>
 
@@ -136,7 +150,8 @@
                              </div>
                     </form>
                 </div>
-
+         </div>
+        </div>
 
             <!--DELETE: In HTML Select Options
             <div style="padding-top: 50px">

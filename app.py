@@ -158,7 +158,7 @@ def update_flower():
 @app.route('/insert_sighting', methods = ['POST'])
 def insert_sighting():
     # Request the receive input (POST) to new SIGHTING
-    in_fl_name = request.form['in_fl_name']
+    in_fl_name = request.form['sel_InsS_Flower_Comname']
     print("The new Sighting's Flower's name is '" + in_fl_name + "'")
 
     in_person = request.form['in_person']
