@@ -1,0 +1,30 @@
+{% extends "maintemplate.html" %}
+
+{% block title %}Login Failure{% endblock %}
+
+{% block content %}
+<body style="background-image: url('static/fl4.jpeg');  background-size: cover; background-position: center center;">
+
+<div class="container-fluid">
+    <div style="padding-top: 100px; padding-left: 70px">
+    <div class="card">
+        <div class="card-body">
+
+             <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 500px;">
+                <h4 class="card-title mt-3 text-center">Are you sure you would like to log out?</h4>
+
+                    <form action="/logout_form" method="post">
+                        <button type="submit" class="btn btn-primary"> Logout  </button>
+                    </form>
+
+            </article>
+             </div>
+
+
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+{% endblock %}

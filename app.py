@@ -1,3 +1,8 @@
+# Title: CIS4301 Assignment 5
+# Description: A GUI for querying and modifying the flowers2019.db through sqlite3 queries, insertions, and triggers
+# Date: 12/12/2019
+# Authors: Zoe Frongillo and Jhanava Ramisetty
+
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 
@@ -66,10 +71,6 @@ def update_flower():
     conn = sqlite3.connect('flowers2019.db')
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
-
-    # Create trigger to keep SIGHTINGS table updated as well
-    # cursorObj.execute(
-    #     "CREATE TRIGGER up_flowers AFTER UPDATE ON Flowers BEGIN UPDATE Sightings SET name = new.comname WHERE name = old.comname; END;")
 
     # Request the receive input (POST) to updated flower
     sel_comname = request.form['sel_Upd_Flower_Comname']
@@ -248,6 +249,14 @@ def login_form():
         query_name = convertTuple(query_tuple)
         return render_template('login_success.html', query_name=query_name)
 
+# App route to sign out
+@app.route('/logout')
+def logout():
+    return render_template('logout.html')
+
+@app.route('/logout_form', methods=['POST'])
+def logout_form():
+    return render_template('logout_success.html')
 
 # App route to sign up on the web app
 @app.route('/sign_up')
