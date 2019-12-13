@@ -234,13 +234,19 @@ def login_form():
     # create a cursor to query the database within the app route
     cursorObj = conn.cursor()
     # All items retrieval from FLOWERS table in DB
-    cursorObj.execute("SELECT fullName FROM USERS WHERE email = \"" + email + "\"")
+    cursorObj.execute("SELECT fullName FROM USERS WHERE email = \"" + email + "\" AND password = \"" + password + "\"")
     # save fetch all to itemsFlowers list; to be referenced in templates
-    query_name = convertTuple(cursorObj.fetchone())
+    query_tuple = cursorObj.fetchone()
     # close the connection to the database
     conn.close()
 
-    return render_template('login_success.html', query_name=query_name)
+    # if query was empty, user does not exist
+    if not (query_tuple):
+        print("User does not exist")
+        return render_template('login_failure.html')
+    else:
+        query_name = convertTuple(query_tuple)
+        return render_template('login_success.html', query_name=query_name)
 
 
 # App route to sign up on the web app
